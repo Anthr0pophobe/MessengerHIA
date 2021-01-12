@@ -1,46 +1,50 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, Linking, Image, TouchableOpacity } from 'react-native';
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 
-const Connexion = () => {
-  const [value, onChangeText, mdp] = React.useState('');
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.wrapper}>
-          <Image
-          style={styles.logo}
-          source={require('../Media/Logo.png')} />
-        </View>
-        <View style={styles.wrapper1}>
-          <Text style={styles.text}>Adresse mail :</Text>
-          <TextInput
-            style={styles.inputText}
-            onChangeText={text => onChangeText(text)}
-            value={value}
-            />
-            <Text style={styles.text}>Mot de passe :</Text>
-            <TextInput
-              style={styles.inputText}
-              onChangeText={mdp => onChangeText(mdp)}
-              value={mdp}
-              />
-        </View>
-        <View style={styles.wrapper2}>
-        <TouchableOpacity style={styles.buttonSecondary} title='Connexion'>
-          <Text style={styles.textSecondary}>Inscription</Text>
-        </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonPrimary} title='Connexion'>
-            <Text style={styles.textPrimary}>Connexion</Text>
+
+class Connexion extends React.Component {
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <View style={styles.wrapper}>
+            <Image
+            style={styles.logo}
+            source={require('../Media/Logo.png')} />
+          </View>
+          <View style={styles.wrapper1}>
+            <Text style={styles.text}>Adresse mail :</Text>
+            <TextInput style={styles.inputText}/>
+              <Text style={styles.text}>Mot de passe :</Text>
+              <TextInput style={styles.inputText}
+              secureTextEntry={true}/>
+          </View>
+          <View style={styles.wrapper2}>
+          <TouchableOpacity style={styles.buttonSecondary} title='Inscription'
+          onPress={() => this.props.navigation.navigate('Inscription')}
+          >
+            <Text style={styles.textSecondary}>Inscription</Text>
           </TouchableOpacity>
+            <TouchableOpacity
+            style={styles.buttonPrimary}
+            title='Connexion'
+            >
+              <Text style={styles.textPrimary}>Connexion</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
-  );
+
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-  container:{ 
+  container:{
     flex: 1,
     backgroundColor : '#373c78',
     justifyContent:'center',
@@ -98,16 +102,18 @@ const styles = StyleSheet.create({
     backgroundColor:'#ff6b5a',
     color:'red',
     borderRadius:10,
-    paddingRight:'20%',
+    //paddingRight:'20%',
   },
   textPrimary:{
+    display:'flex',
     color:'white',
     fontWeight:'bold',
     fontSize:15,
     flex:1,
     width:100,
     textAlign:'center',
-    paddingTop:'25%'
+    paddingTop:10,
+    justifyContent:'center'
   },
   buttonSecondary:{
     width:100,
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
   textSecondary:{
     color:'#ff6b5a',
     fontWeight:'bold',
-    fontSize:14,
+    fontSize:15,
     width:100,
     textAlign:'center',
     paddingTop:6,

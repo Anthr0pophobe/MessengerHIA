@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, Linking, Image, TouchableOpacity } from 'react-native';
 
-const Inscription = () => {
-  const [value, onChangeText, mdp] = React.useState('');
+class Inscription extends React.Component {
 
-  return (
+  render() {
+    return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.wrapper}>
@@ -16,47 +16,38 @@ const Inscription = () => {
           <Text style={styles.text}>Nom :</Text>
           <TextInput
             style={styles.inputText}
-            onChangeText={text => onChangeText(text)}
-            value={value}
             />
           <Text style={styles.text}>Prenom :</Text>
           <TextInput
             style={styles.inputText}
-            onChangeText={text => onChangeText(text)}
-            value={value}
             />
           <Text style={styles.text}>Adresse mail :</Text>
           <TextInput
             style={styles.inputText}
-            onChangeText={text => onChangeText(text)}
-            value={value}
               />
           <Text style={styles.text}>Mot de passe :</Text>
           <TextInput
             style={styles.inputText}
-            onChangeText={mdp => onChangeText(mdp)}
-            value={mdp}
                 />
           <Text style={styles.text}>Confirmer le mot de passe :</Text>
           <TextInput
             style={styles.inputText}
-            onChangeText={mdp => onChangeText(mdp)}
-            value={mdp}
           />
         </View>
         <View style={styles.wrapper2}>
-        <TouchableOpacity style={styles.buttonSecondary} title='Connexion'>
-          <Text style={styles.textSecondary}>Inscription</Text>
+        <TouchableOpacity style={styles.buttonSecondary} title='Connexion'
+        onPress={() => this.props.navigation.goBack()}>
+          <Text style={styles.textSecondary}>Connexion</Text>
         </TouchableOpacity>
           <TouchableOpacity style={styles.buttonPrimary} title='Connexion'>
-            <Text style={styles.textPrimary}>Connexion</Text>
+            <Text style={styles.textPrimary}>Confirmer l'inscription</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
-  );
+  )
 }
-
+}
 const styles = StyleSheet.create({
   container:{
     flex: 1,
