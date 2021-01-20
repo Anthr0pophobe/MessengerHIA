@@ -6,9 +6,15 @@ import Inscription from '../Composants/Inscription.js'
 const ConnexionStackNavigator = createStackNavigator({
   Connexion: {
     screen: Connexion,
+    navigationOptions: {
+      header: null
+    }
   },
   Inscription:{
     screen:Inscription,
+    navigationOptions: {
+      header: null
+    }
   }
 })
 export default createAppContainer(ConnexionStackNavigator)

@@ -2,10 +2,30 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, Linking, Image, TouchableOpacity } from 'react-native';
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
+import Fire from "../firebaseAPI.js"
 
 
 
 class Connexion extends React.Component {
+
+  state ={
+    mail:"",
+    password:""
+  }
+
+  handleMail = (text) => {
+    this.setState({mail: text})
+  }
+
+  handlePassword = (text) => {
+    this.setState({password: text})
+  }
+
+  login = (mail, pass) => {
+      alert('email: ' + mail + ' password: ' + pass)
+   }
+
+
 
   render() {
     return (
@@ -18,9 +38,13 @@ class Connexion extends React.Component {
           </View>
           <View style={styles.wrapper1}>
             <Text style={styles.text}>Adresse mail :</Text>
-            <TextInput style={styles.inputText}/>
+            <TextInput style={styles.inputText}
+            autoCapitalize = "none"
+            onChangeText = {this.handleMail}/>
               <Text style={styles.text}>Mot de passe :</Text>
               <TextInput style={styles.inputText}
+              autoCapitalize = "none"
+              onChangeText = {this.handlePassword}
               secureTextEntry={true}/>
           </View>
           <View style={styles.wrapper2}>
@@ -32,7 +56,7 @@ class Connexion extends React.Component {
             <TouchableOpacity
             style={styles.buttonPrimary}
             title='Connexion'
-            >
+            onPress = {() => Fire.checkAuth(this.state.mail, this.state.password)}>
               <Text style={styles.textPrimary}>Connexion</Text>
             </TouchableOpacity>
           </View>
