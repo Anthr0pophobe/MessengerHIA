@@ -22,15 +22,13 @@ class Fire {
   };
 
   checkAuth = (mail, password) =>{
-    firebase.auth().onAuthStateChanged(Patient =>{
+    firebase.auth().onAuthStateChanged(user =>{
       console.log(mail, password);
-      if(!Patient){
-        firebase.auth().signInWithEmailAndPassword(mail, password).then((Patient) => {
+  if(!user){
+        firebase.auth().signInWithEmailAndPassword(mail, password).then((user) => {
           alert('Connexion réussi');
-
-  })
-
-      }
+        })
+   }
     })
   }
 

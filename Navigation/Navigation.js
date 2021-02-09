@@ -7,13 +7,13 @@ const ConnexionStackNavigator = createStackNavigator({
   Connexion: {
     screen: Connexion,
     navigationOptions: {
-      header: null
+      headershown: false
     }
   },
   Inscription:{
     screen:Inscription,
     navigationOptions: {
-      header: null
+      headershown: false
     }
   }
 })
