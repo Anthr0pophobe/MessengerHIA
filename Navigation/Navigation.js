@@ -2,18 +2,25 @@ import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import Connexion from '../Composants/Connexion.js'
 import Inscription from '../Composants/Inscription.js'
+import Accueil from '../Composants/Accueil.js'
 
 const ConnexionStackNavigator = createStackNavigator({
   Connexion: {
     screen: Connexion,
     navigationOptions: {
-      header: null
+      headershown: false
     }
   },
   Inscription:{
     screen:Inscription,
     navigationOptions: {
-      header: null
+      headershown: false
+    }
+  },
+  Accueil:{
+    screen:Accueil,
+    navigationOptions: {
+      headershown: false
     }
   }
 })

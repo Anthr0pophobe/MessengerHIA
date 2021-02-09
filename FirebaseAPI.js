@@ -1,7 +1,11 @@
 import firebase from 'firebase'
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import Connexion from './Composants/Connexion.js'
+
 
 class Fire {
-  constructor() {
+  constructor(props) {
     this.init()
     this.checkAuth()
   }
@@ -21,18 +25,30 @@ class Fire {
     }
   };
 
-  checkAuth = (mail, password) =>{
-    firebase.auth().onAuthStateChanged(Patient =>{
-      console.log(mail, password);
-      if(!Patient){
-        firebase.auth().signInWithEmailAndPassword(mail, password).then((Patient) => {
-          alert('Connexion réussi');
+  //checkAuth = (mail, pass) => {
+  //  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  //    .then(() => {
+  //        firebase.auth().signInWithEmailAndPassword(mail, pass).then(
+  //          Connexion.props.navigation.navigate('Accueil')
+  //        )
+  //    })
+  //}
 
-  })
 
-      }
-    })
-  }
+checkAuth = (mail, pass) => {
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    console.log(firebase.auth().currentUser)
+  } else {
+    // No user is signed in.
+    firebase.auth().signInWithEmailAndPassword(mail, pass).then(
+      console.log("User vient de se connecter")
+      )
+    }
+  });
+
+}
 
 }
 

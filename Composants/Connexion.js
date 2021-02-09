@@ -3,10 +3,18 @@ import { View, Text, TextInput, StyleSheet, Button, Linking, Image, TouchableOpa
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import Fire from "../firebaseAPI.js"
+import firebase from 'firebase'
+
+
 
 
 
 class Connexion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.login()
+  }
+
 
   state ={
     mail:"",
@@ -21,8 +29,13 @@ class Connexion extends React.Component {
     this.setState({password: text})
   }
 
-  login = (mail, pass) => {
-      alert('email: ' + mail + ' password: ' + pass)
+  login(mail, pass) {
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+          firebase.auth().signInWithEmailAndPassword(mail, pass).then(
+            (this.props.navigation.navigate('Accueil'))
+          )
+      })
    }
 
 
