@@ -25,6 +25,7 @@ class Fire {
     }
   };
 
+<<<<<<< HEAD
   //checkAuth = (mail, pass) => {
   //  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
   //    .then(() => {
@@ -49,6 +50,18 @@ checkAuth = (mail, pass) => {
   });
 
 }
+=======
+  checkAuth = (mail, password) =>{
+    firebase.auth().onAuthStateChanged(user =>{
+      console.log(mail, password);
+  if(!user){
+        firebase.auth().signInWithEmailAndPassword(mail, password).then((user) => {
+          alert('Connexion réussi');
+        })
+   }
+    })
+  }
+>>>>>>> 7e04f234236e916f06051d0186d5b0093c789813
 
 }
 

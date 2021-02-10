@@ -4,6 +4,7 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import Fire from "../firebaseAPI.js"
 import firebase from 'firebase'
+import { connect } from 'react-redux'
 
 
 
@@ -170,4 +171,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default Connexion;
+export default connect(mapStateToProps)(Connexion)

@@ -12,7 +12,7 @@ class Accueil extends React.Component{
 
   render() {
     return (
-      <Text>Page d'accueil</Text>
+      <View>
     )
   }
 }
