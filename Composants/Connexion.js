@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, TextInput, StyleSheet, Button, Linking, Image, TouchableOpacity } from 'react-native';
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
@@ -70,7 +70,7 @@ class Connexion extends React.Component {
             <TouchableOpacity
             style={styles.buttonPrimary}
             title='Connexion'
-            onPress = {() => Fire.checkAuth(this.state.mail, this.state.password)}>
+            onPress = {() => this.props.navigation.push('Accueil')}>   //Fire.checkAuth(this.state.mail, this.state.password)
               <Text style={styles.textPrimary}>Connexion</Text>
             </TouchableOpacity>
           </View>
@@ -171,4 +171,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default connect(mapStateToProps)(Connexion)
+export default Connexion //connect(mapStateToProps)(Connexion)

@@ -8,22 +8,19 @@ const ConnexionStackNavigator = createStackNavigator({
   Connexion: {
     screen: Connexion,
     navigationOptions: {
-      headershown: false
+      header: null,
     }
   },
   Inscription:{
     screen:Inscription,
     navigationOptions: {
-      headershown: false
-<<<<<<< HEAD
+      header: null,
     }
   },
   Accueil:{
     screen:Accueil,
     navigationOptions: {
-      headershown: false
-=======
->>>>>>> 7e04f234236e916f06051d0186d5b0093c789813
+      headerLeft: null
     }
   }
 })
