@@ -4,6 +4,7 @@ import {View, StyleSheet, Text} from 'react-native'
 class NotifItem extends React.Component{
 
   render(){
+    console.log(this.props);
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Il a prit son bain à 8h du matin et ensuite il a manger ses pates. Fait le 10/2/2021 à 8h</Text>
@@ -16,8 +17,6 @@ const styles = StyleSheet.create({
   container:{
     height: 50,
     width: "95%",
-//    paddingTop:'10',
-//    paddingBottom:'10',
     marginLeft:'3%',
     backgroundColor : '#373c78',
     justifyContent:'center',
