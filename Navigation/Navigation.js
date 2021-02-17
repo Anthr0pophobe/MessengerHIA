@@ -3,6 +3,7 @@ import {createStackNavigator, createSwitchNavigator} from 'react-navigation-stac
 import Connexion from '../Composants/Connexion.js'
 import Inscription from '../Composants/Inscription.js'
 import Accueil from '../Composants/Accueil.js'
+import Loading from '../Composants/Loading.js'
 
 const ConnexionStackNavigator = createStackNavigator({
   Connexion: {

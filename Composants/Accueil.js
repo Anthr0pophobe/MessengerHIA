@@ -6,6 +6,7 @@ import Connexion from './Connexion.js'
 import NotifItem from './NotifItem.js'
 import Fire from "../firebaseAPI.js"
 
+
 class Accueil extends React.Component{
 
   constructor(props) {

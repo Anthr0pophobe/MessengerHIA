@@ -71,7 +71,7 @@ class Connexion extends React.Component {
             <TouchableOpacity
             style={styles.buttonPrimary}
             title='Connexion'
-            onPress = {() => this.props.navigation.navigate('Loading')}>
+            onPress = {() => this.props.navigation.navigate('Accueil')}>
               <Text style={styles.textPrimary}>Connexion</Text>
             </TouchableOpacity>
           </View>
