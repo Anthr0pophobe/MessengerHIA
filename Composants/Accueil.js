@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, Image, FlatList, Text} from 'react-native';
+import {View, StyleSheet, Image, FlatList, Text, TouchableOpacity} from 'react-native';
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import Connexion from './Connexion.js'
 import NotifItem from './NotifItem.js'
+import Fire from "../firebaseAPI.js"
 
 class Accueil extends React.Component{
 
@@ -18,9 +19,14 @@ class Accueil extends React.Component{
           <Image
           style={styles.logo}
           source={require('../Media/Logo.png')}/>
+          <TouchableOpacity
+          style={styles.buttonPrimary}
+          title='Connexion'
+          onPress = {() => (Fire.getNotif)}>
+            <Text style={styles.textPrimary}>Connexion</Text>
+          </TouchableOpacity>
           <FlatList
-         data={[{key: 'a'}, {key: 'b'}]}
-         renderItem={({item}) => <NotifItem/>}
+         renderItem={({item}) => <NotifItem notif={item}/>}
        />
         </View>
       </View>
@@ -48,6 +54,13 @@ const styles = StyleSheet.create({
       resizeMode:'contain',
       width:100,
       height:100,
+  },
+  buttonPrimary:{
+    width:100,
+    height:48,
+    backgroundColor:'#ff6b5a',
+    color:'red',
+    borderRadius:10,
   },
 })
 

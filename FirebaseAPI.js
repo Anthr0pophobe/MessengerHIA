@@ -1,7 +1,12 @@
+import React from 'react';
 import firebase from 'firebase'
+import firestore from 'firebase/firestore'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import Connexion from './Composants/Connexion.js'
+import Accueil from './Composants/Accueil.js'
+
+
 
 
 class Fire {
@@ -25,30 +30,33 @@ class Fire {
     }
   };
 
-  //checkAuth = (mail, pass) => {
-  //  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-  //    .then(() => {
-  //        firebase.auth().signInWithEmailAndPassword(mail, pass).then(
-  //          Connexion.props.navigation.navigate('Accueil')
-  //        )
-  //    })
-  //}
+  //const db=firebase.firestore();
 
+ checkAuth = async (mail, pass) => {
+  try {
 
-checkAuth = (mail, pass) => {
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    console.log(firebase.auth().currentUser)
-  } else {
-    // No user is signed in.
-    firebase.auth().signInWithEmailAndPassword(mail, pass).then(
-      console.log("User vient de se connecter")
-      )
+    let response = await firebase.auth().signInWithEmailAndPassword(mail, pass)
+    if (response && response.user) {
+      console.log(response);
     }
-  });
-
+    else {
+      console.log('faux',response);
+    }
+  } catch (e) {
+    console.log(e.message)
+  }
 }
+
+
+
+/*db.collection("notification").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+    });
+});*/
+
+
+
 
 }
 

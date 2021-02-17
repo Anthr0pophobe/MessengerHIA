@@ -1,5 +1,5 @@
 import {createAppContainer} from 'react-navigation'
-import {createStackNavigator} from 'react-navigation-stack'
+import {createStackNavigator, createSwitchNavigator} from 'react-navigation-stack'
 import Connexion from '../Composants/Connexion.js'
 import Inscription from '../Composants/Inscription.js'
 import Accueil from '../Composants/Accueil.js'
@@ -22,6 +22,14 @@ const ConnexionStackNavigator = createStackNavigator({
     navigationOptions: {
       headerLeft: null
     }
-  }
-})
+  },
+  Loeading :{
+    screen:Loading,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+});
+
+
 export default createAppContainer(ConnexionStackNavigator)
