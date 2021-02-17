@@ -58,8 +58,21 @@ class Fire {
   try {
 
     let response = await firebase.auth().signInWithEmailAndPassword(mail, pass)
-    if (response && response.user) {
-      console.log(response);
+    firebase.auth().onAuthStateChanged(function(user) {
+  if (user)  {
+    alert('Connexion réussi')
+    return user.state
+  }
+});
+} catch (e) {
+  console.log('je suis dans le catch');
+  console.log(e.message)
+}
+}
+
+/*  if (response && response.user) {
+      console.log(response.forceRefresh);
+      //return getIdTokenResult(forceRefresh?: undefined | false | true): Promise<IdTokenResult>;
     }
     else {
       console.log('faux',response);
@@ -67,15 +80,19 @@ class Fire {
   } catch (e) {
     console.log(e.message)
   }
-}
+}*/
 
-var db = Firestore.firestore()
 
-db.collection("notification").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
+
+ getMarker = async() => {
+   console.log('je rentre dans la boucle');
+    const snapshot = await firebase.firestore().collection('notification').get()
+    const documents = [];
+    snapshot.forEach(doc => {
+       documents[doc.id] = doc.data();
     });
-});
+    return documents;
+}
 
 
 

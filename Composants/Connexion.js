@@ -5,14 +5,14 @@ import { createStackNavigator } from 'react-navigation-stack'
 import Fire from "../firebaseAPI.js"
 import firebase from 'firebase'
 import { connect } from 'react-redux'
-import Loading from './Loading.js'
+
 
 
 
 class Connexion extends React.Component {
   constructor(props) {
     super(props);
-    //  this.login()
+    this.login()
   }
 
 
@@ -30,15 +30,11 @@ class Connexion extends React.Component {
     this.setState({password: text})
   }
 
-  /*login(mail, pass) {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-          firebase.auth().signInWithEmailAndPassword(mail, pass).then(
-            (this.props.navigation('Accueil'))
-          )
-      })
-   }*/
-
+  login(mail, pass) {
+  var  result = Fire.checkAuth(this.state.mail, this.state.password);
+  console.log('dans login',result,'test');
+      this.props.navigation.navigate(result ? 'Accueil' : 'Connexion')    
+}
 
 
 
@@ -71,7 +67,7 @@ class Connexion extends React.Component {
             <TouchableOpacity
             style={styles.buttonPrimary}
             title='Connexion'
-            onPress = {() => this.props.navigation.navigate('Accueil')}>
+            onPress = {() => this.login(this.state.mail, this.state.password)}>
               <Text style={styles.textPrimary}>Connexion</Text>
             </TouchableOpacity>
           </View>

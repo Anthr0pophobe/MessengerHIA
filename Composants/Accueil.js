@@ -10,6 +10,15 @@ class Accueil extends React.Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      notif:[],
+    }
+    this._loadNotifs();
+}
+
+_loadNotifs() {
+    notif: [Fire.getMarker()]
+    console.log('prout',this.notif);
 }
 
   render() {
@@ -22,10 +31,12 @@ class Accueil extends React.Component{
           <TouchableOpacity
           style={styles.buttonPrimary}
           title='Connexion'
-          onPress = {() => (Fire.getNotif)}>
+          onPress = {() => this._loadNotifs() }>
             <Text style={styles.textPrimary}>Connexion</Text>
           </TouchableOpacity>
           <FlatList
+          data={this.state.notif}
+          keyExtractor={(item) => item.id.toString()}
          renderItem={({item}) => <NotifItem notif={item}/>}
        />
         </View>
