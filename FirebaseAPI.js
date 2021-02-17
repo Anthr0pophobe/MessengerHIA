@@ -7,8 +7,6 @@ import Connexion from './Composants/Connexion.js'
 import Accueil from './Composants/Accueil.js'
 
 
-
-
 class Fire {
   constructor(props) {
     this.init()
@@ -30,7 +28,31 @@ class Fire {
     }
   };
 
-  //const db=firebase.firestore();
+  //checkAuth = (mail, pass) => {
+  //  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  //    .then(() => {
+  //        firebase.auth().signInWithEmailAndPassword(mail, pass).then(
+  //          Connexion.props.navigation.navigate('Accueil')
+  //        )
+  //    })
+  //}
+
+
+/*checkAuth = (mail, pass) => {
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    console.log(firebase.auth().currentUser)
+  } else {
+    // No user is signed in.
+    firebase.auth().signInWithEmailAndPassword(mail, pass).then(
+      console.log("User vient de se connecter")
+      )
+    }
+  });
+
+}*/
+
 
  checkAuth = async (mail, pass) => {
   try {
@@ -47,13 +69,13 @@ class Fire {
   }
 }
 
+var db = Firestore.firestore()
 
-
-/*db.collection("notification").get().then((querySnapshot) => {
+db.collection("notification").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
     });
-});*/
+});
 
 
 
