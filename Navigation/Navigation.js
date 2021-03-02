@@ -3,7 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack'
 import Connexion from '../Composants/Connexion.js'
 import Inscription from '../Composants/Inscription.js'
 import Accueil from '../Composants/Accueil.js'
-import Loading from '../Composants/Loading.js'
+
 
 const ConnexionStackNavigator = createStackNavigator({
   Connexion: {
@@ -24,12 +24,6 @@ const ConnexionStackNavigator = createStackNavigator({
       headerLeft: null
     }
   },
-  Loading:{
-    screen:Loading,
-    navigationOptions: {
-      header: null
-    }
-  }
 });
 
 

@@ -13,13 +13,10 @@ class Accueil extends React.Component{
     this.state = {
       notif:[],
     }
-    this._loadNotifs();
+
 }
 
-_loadNotifs() {
-    notif: [Fire.getMarker()]
-    console.log('prout',this.notif);
-}
+
 
   render() {
     return (
@@ -28,12 +25,6 @@ _loadNotifs() {
           <Image
           style={styles.logo}
           source={require('../Media/Logo.png')}/>
-          <TouchableOpacity
-          style={styles.buttonPrimary}
-          title='Connexion'
-          onPress = {() => this._loadNotifs() }>
-            <Text style={styles.textPrimary}>Connexion</Text>
-          </TouchableOpacity>
           <FlatList
           data={this.state.notif}
           keyExtractor={(item) => item.id.toString()}
@@ -65,13 +56,6 @@ const styles = StyleSheet.create({
       resizeMode:'contain',
       width:100,
       height:100,
-  },
-  buttonPrimary:{
-    width:100,
-    height:48,
-    backgroundColor:'#ff6b5a',
-    color:'red',
-    borderRadius:10,
   },
 })
 

@@ -1,7 +1,46 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, Linking, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import firebase from 'firebase'
+
+
 
 class Inscription extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  state ={
+    name:"",
+    lastName:"",
+    mail:"",
+    password:"",
+    confirmPassword:""
+  }
+
+  handleName = (text) => {
+    this.setState({name: text})
+  }
+  handleLastName = (text) => {
+    this.setState({lastName: text})
+  }
+  handleMail = (text) => {
+    this.setState({mail: text})
+  }
+  handlePassword = (text) => {
+    this.setState({password: text})
+  }
+  handleConfirmPassword = (text) => {
+    this.setState({confirmPassword: text})
+  }
+  verify = () => {
+    const { name, lastName, mail, password, confirmPassword } = this.state
+    if(password === confirmPassword){
+      firebase.auth()
+           .createUserWithEmailAndPassword(mail, password)
+           .then(() => this.props.navigation.navigate('Accueil'))
+           .catch(error => console.log(error))
+    }
+  }
 
   render() {
     return (
@@ -13,25 +52,33 @@ class Inscription extends React.Component {
           source={require('../Media/Logo.png')} />
         </View>
         <View style={styles.wrapper1}>
-          <Text style={styles.text}>Nom :</Text>
-          <TextInput
-            style={styles.inputText}
-            />
+
           <Text style={styles.text}>Prenom :</Text>
           <TextInput
             style={styles.inputText}
+            onChangeText = {this.handleName}
             />
+            <Text style={styles.text}>Nom :</Text>
+            <TextInput
+              style={styles.inputText}
+              onChangeText = {this.handleLastName}
+              />
           <Text style={styles.text}>Adresse mail :</Text>
           <TextInput
             style={styles.inputText}
+            onChangeText = {this.handleMail}
               />
           <Text style={styles.text}>Mot de passe :</Text>
           <TextInput
             style={styles.inputText}
+            secureTextEntry={true}
+            onChangeText = {this.handlePassword}
                 />
           <Text style={styles.text}>Confirmer le mot de passe :</Text>
           <TextInput
             style={styles.inputText}
+            secureTextEntry={true}
+            onChangeText = {this.handleConfirmPassword}
           />
         </View>
         <View style={styles.wrapper2}>
@@ -39,7 +86,11 @@ class Inscription extends React.Component {
         onPress={() => this.props.navigation.goBack()}>
           <Text style={styles.textSecondary}>Connexion</Text>
         </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonPrimary} title='Connexion'>
+          <TouchableOpacity
+          style={styles.buttonPrimary}
+          title='Connexion'
+          onPress={this.verify}
+          >
             <Text style={styles.textPrimary}>Confirmer l'inscription</Text>
           </TouchableOpacity>
         </View>
@@ -113,13 +164,15 @@ const styles = StyleSheet.create({
     paddingRight:'20%',
   },
   textPrimary:{
+    display:'flex',
     color:'white',
     fontWeight:'bold',
     fontSize:15,
     flex:1,
     width:100,
     textAlign:'center',
-    paddingTop:'25%'
+    paddingTop:2,
+    justifyContent:'center'
   },
   buttonSecondary:{
     width:100,

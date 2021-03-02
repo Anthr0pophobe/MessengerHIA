@@ -1,10 +1,7 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Button, Linking, Image, TouchableOpacity } from 'react-native';
-import { AppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
-import Fire from "../firebaseAPI.js"
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import firebase from 'firebase'
-import { connect } from 'react-redux'
+//import { connect } from 'react-redux'
 
 
 
@@ -12,14 +9,12 @@ import { connect } from 'react-redux'
 class Connexion extends React.Component {
   constructor(props) {
     super(props);
-    this.login()
   }
-
-
 
   state ={
     mail:"",
-    password:""
+    password:"",
+    errorMessage: null
   }
 
   handleMail = (text) => {
@@ -30,11 +25,14 @@ class Connexion extends React.Component {
     this.setState({password: text})
   }
 
-  login(mail, pass) {
-  var  result = Fire.checkAuth(this.state.mail, this.state.password);
-  console.log('dans login',result,'test');
-      this.props.navigation.navigate(result ? 'Accueil' : 'Connexion')    
-}
+  handleLogin = () => {
+    const { mail, password } = this.state
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(mail, password)
+      .then(() => this.props.navigation.navigate('Accueil'))
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
 
 
 
@@ -67,7 +65,7 @@ class Connexion extends React.Component {
             <TouchableOpacity
             style={styles.buttonPrimary}
             title='Connexion'
-            onPress = {() => this.login(this.state.mail, this.state.password)}>
+            onPress={this.handleLogin}>
               <Text style={styles.textPrimary}>Connexion</Text>
             </TouchableOpacity>
           </View>
