@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image, FlatList, Text, Button} from 'react-native';
+import {View, StyleSheet, Image, FlatList, Text, Button, UseState} from 'react-native';
 import Connexion from './Connexion.js'
 import NotifItem from './NotifItem.js'
 import Fire from "../firebaseAPI.js"
@@ -12,29 +12,57 @@ class Accueil extends React.Component{
     super(props);
     this.state = {
       notif:[],
-
     }
 
 
 }
 
-test = () =>{
-  var db = firebase.firestore();
-    db.collection("cptProche").add({
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815
-  })
-  .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
-  })
-  .catch((error) => {
-      console.error("Error adding document: ", error);
-  });
+// test = () =>{
+//   var user =  firebase.auth().currentUser;
+//   var uid = user.uid
+//    var db = firebase.firestore();
+//    var query = db.collection("cptProche").where("uid", "==", uid)
+//    console.log(query);
+//    query.get()
+//         .then((querySnapshot)=> {
+//           querySnapshot.forEach((doc) => {
+//           this.notif = doc.data();
+//         })
+//       })
+//
+//         .catch((error)=> {
+//           console.log("erreur dans la reception du document", error);
+//         })
+//
+// }
+
+lecture = () => {
+  console.log(this.state);
+}
+
+componentDidMount(){
+  var user =  firebase.auth().currentUser;
+  var uid = user.uid
+   var db = firebase.firestore();
+   var query = db.collection("cptProche").where("uid", "==", uid)
+   console.log(query);
+   query.get()
+        .then((querySnapshot)=> {
+          querySnapshot.forEach((doc) => {
+        //  this.notif = doc.data();
+          this.setState({ notif: doc.data() })
+        })
+      })
+
+        .catch((error)=> {
+          console.log("erreur dans la reception du document", error);
+        })
+
 }
 
 
   render() {
+    const { notif } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -42,12 +70,12 @@ test = () =>{
           style={styles.logo}
           source={require('../Media/Logo.png')}/>
           <Button
-            onPress={this.test}
-            title="ajouter DB"
-          />
+          onPress={this.lecture}/>
+
           <FlatList
-          data={[{key: 'a'}, {key: 'b'}]}
-        //  keyExtractor={(item) => item.id.toString()}
+          data={notif.uid}
+        //  keyExtractor={(item) => item.uid.toString()}
+          keyExtractor={({ id }, index) => id}
           renderItem={({item}) => <NotifItem notif={item}/>}
        />
         </View>

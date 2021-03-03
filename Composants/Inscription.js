@@ -32,22 +32,19 @@ class Inscription extends React.Component {
   handleConfirmPassword = (text) => {
     this.setState({confirmPassword: text})
   }
-  verify = async () => {
 
+//La fonction verify permet de valider une inscription et d'y ajouter les données dans la bd cloudfire
+  verify = async () => {
     var db = firebase.firestore();
      const { name, lastName, mail, password, confirmPassword } = this.state
      var  uid;
     if(password === confirmPassword){
     await  firebase.auth().createUserWithEmailAndPassword(mail, password)
       var user = await firebase.auth().currentUser;
-
       if (user != null) {
-        console.log(user)
         uid = user.uid
       }
-      alert(uid)
-      db
-        .collection("cptProche").add({
+      db.collection("cptProche").add({
         prenom:name,
         nom:lastName,
         mail:mail,
