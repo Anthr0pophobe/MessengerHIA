@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase from 'firebase'
-import firestore from 'firebase/firestore'
-
+import 'firebase/firestore'
 
 
 class Fire {

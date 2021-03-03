@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, Image, FlatList, Text, TouchableOpacity} from 'react-native';
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import {View, StyleSheet, Image, FlatList, Text, Button} from 'react-native';
 import Connexion from './Connexion.js'
 import NotifItem from './NotifItem.js'
 import Fire from "../firebaseAPI.js"
+import firebase from 'firebase'
+import 'firebase/firestore'
 
 class Accueil extends React.Component{
 
@@ -12,10 +12,26 @@ class Accueil extends React.Component{
     super(props);
     this.state = {
       notif:[],
+
     }
+
 
 }
 
+test = () =>{
+  var db = firebase.firestore();
+    db.collection("cptProche").add({
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+  })
+  .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      console.error("Error adding document: ", error);
+  });
+}
 
 
   render() {
@@ -25,10 +41,14 @@ class Accueil extends React.Component{
           <Image
           style={styles.logo}
           source={require('../Media/Logo.png')}/>
+          <Button
+            onPress={this.test}
+            title="ajouter DB"
+          />
           <FlatList
-          data={this.state.notif}
-          keyExtractor={(item) => item.id.toString()}
-         renderItem={({item}) => <NotifItem notif={item}/>}
+          data={[{key: 'a'}, {key: 'b'}]}
+        //  keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) => <NotifItem notif={item}/>}
        />
         </View>
       </View>

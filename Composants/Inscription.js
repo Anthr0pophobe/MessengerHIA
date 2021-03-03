@@ -32,17 +32,32 @@ class Inscription extends React.Component {
   handleConfirmPassword = (text) => {
     this.setState({confirmPassword: text})
   }
-  verify = () => {
-    const { name, lastName, mail, password, confirmPassword } = this.state
+  verify = async () => {
+
+    var db = firebase.firestore();
+     const { name, lastName, mail, password, confirmPassword } = this.state
+     var  uid;
     if(password === confirmPassword){
-      firebase.auth()
-           .createUserWithEmailAndPassword(mail, password)
-           .then(() => this.props.navigation.navigate('Accueil'))
-           .catch(error => console.log(error))
-    }
+    await  firebase.auth().createUserWithEmailAndPassword(mail, password)
+      var user = await firebase.auth().currentUser;
+
+      if (user != null) {
+        console.log(user)
+        uid = user.uid
+      }
+      alert(uid)
+      db
+        .collection("cptProche").add({
+        prenom:name,
+        nom:lastName,
+        mail:mail,
+       uid:user.uid,
+         })
+      .then(() => this.props.navigation.navigate('Accueil'))
+      }
   }
 
-  render() {
+   render() {
     return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
