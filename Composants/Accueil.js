@@ -13,31 +13,11 @@ class Accueil extends React.Component{
     this.state = {
       notif:[],
     }
-
-
 }
 
-// test = () =>{
-//   var user =  firebase.auth().currentUser;
-//   var uid = user.uid
-//    var db = firebase.firestore();
-//    var query = db.collection("cptProche").where("uid", "==", uid)
-//    console.log(query);
-//    query.get()
-//         .then((querySnapshot)=> {
-//           querySnapshot.forEach((doc) => {
-//           this.notif = doc.data();
-//         })
-//       })
-//
-//         .catch((error)=> {
-//           console.log("erreur dans la reception du document", error);
-//         })
-//
-// }
-
 lecture = () => {
-  console.log(this.state);
+  console.log(this.notif);
+  console.log(this.props);
 }
 
 componentDidMount(){
@@ -45,19 +25,19 @@ componentDidMount(){
   var uid = user.uid
    var db = firebase.firestore();
    var query = db.collection("cptProche").where("uid", "==", uid)
-   console.log(query);
+   console.log('query',query);
    query.get()
         .then((querySnapshot)=> {
           querySnapshot.forEach((doc) => {
-        //  this.notif = doc.data();
-          this.setState({ notif: doc.data() })
+          this.notif = doc.data();
+          this.setState({ notif: this.notif })
         })
       })
 
         .catch((error)=> {
           console.log("erreur dans la reception du document", error);
         })
-
+console.log('salut',this.state.notif.uid);
 }
 
 
@@ -73,11 +53,11 @@ componentDidMount(){
           onPress={this.lecture}/>
 
           <FlatList
-          data={notif.uid}
-        //  keyExtractor={(item) => item.uid.toString()}
-          keyExtractor={({ id }, index) => id}
-          renderItem={({item}) => <NotifItem notif={item}/>}
-       />
+        //    keyExtractor={(item) => item.uid.toString()}
+          keyExtractor={({ id }, index) => this.state.notif.mail}
+          renderItem={({notif}) => <NotifItem extraData={this.state.notif}/>}
+
+          />
         </View>
       </View>
     )

@@ -1,17 +1,28 @@
 import React from 'react'
 import {View, StyleSheet, Text} from 'react-native'
 
-class NotifItem extends React.Component{
+const NotifItem = ({extraData}) => {
+  const{nom, prenom, mail, uid} = extraData
 
-  render(){
-    console.log(this.props);
-    return(
-      <View style={styles.container}>
-        <Text style={styles.title}>Il a prit son bain à 8h du matin et ensuite il a manger ses pates. Fait le 10/2/2021 à 8h</Text>
-      </View>
-    )}
-
+  return(
+    <View style={styles.container}>
+      <Text style={styles.title}>Nom : {extraData.nom}, prénom : {extraData.prenom}</Text>
+    </View>
+  )
 }
+
+// class NotifItem extends React.Component{
+//   constructor(extraData){
+//     super(extraData)
+//   }
+//
+//   render(){
+//     console.log(this.extraData);
+//     return(
+//
+//     )}
+//
+// }
 
 const styles = StyleSheet.create({
   container:{
