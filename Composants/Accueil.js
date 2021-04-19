@@ -17,14 +17,32 @@ class Accueil extends React.Component{
 
 lecture = () => {
   console.log(this.notif);
-  console.log(this.props);
 }
+
+// componentDidMount(){
+//   var user =  firebase.auth().currentUser;
+//   var uid = user.uid
+//    var db = firebase.firestore();
+//    var query = db.collection("notification") 
+//    console.log('query',query);
+//    query.get()
+//         .then((querySnapshot)=> {
+//           querySnapshot.forEach((doc) => {
+//           this.notif = doc.data();
+//           this.setState({ notif: this.notif })
+//         })
+//       })
+//
+//         .catch((error)=> {
+//           console.log("erreur dans la reception du document", error);
+//         })
+// }
 
 componentDidMount(){
   var user =  firebase.auth().currentUser;
   var uid = user.uid
    var db = firebase.firestore();
-   var query = db.collection("cptProche").where("uid", "==", uid)
+   var query = db.collection("notification")
    console.log('query',query);
    query.get()
         .then((querySnapshot)=> {
@@ -37,8 +55,9 @@ componentDidMount(){
         .catch((error)=> {
           console.log("erreur dans la reception du document", error);
         })
-console.log('salut',this.state.notif.uid);
 }
+
+
 
 
   render() {
@@ -53,9 +72,9 @@ console.log('salut',this.state.notif.uid);
           onPress={this.lecture}/>
 
           <FlatList
-        //    keyExtractor={(item) => item.uid.toString()}
-          keyExtractor={({ id }, index) => this.state.notif.mail}
-          renderItem={({notif}) => <NotifItem extraData={this.state.notif}/>}
+          keyExtractor={(item) => item.uid.toString()}
+          keyExtractor={({ id }, index) => this.state.notif}
+          renderItem={({extraData}) => <NotifItem extraData={this.state.notif}/>}
 
           />
         </View>
