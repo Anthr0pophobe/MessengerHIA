@@ -15,49 +15,73 @@ class Accueil extends React.Component{
     }
 }
 
-lecture = () => {
-  console.log(this.notif);
-}
-
-// componentDidMount(){
-//   var user =  firebase.auth().currentUser;
-//   var uid = user.uid
-//    var db = firebase.firestore();
-//    var query = db.collection("notification") 
-//    console.log('query',query);
-//    query.get()
-//         .then((querySnapshot)=> {
-//           querySnapshot.forEach((doc) => {
-//           this.notif = doc.data();
-//           this.setState({ notif: this.notif })
-//         })
-//       })
-//
-//         .catch((error)=> {
-//           console.log("erreur dans la reception du document", error);
-//         })
-// }
-
-componentDidMount(){
+ lecture = async() => {
   var user =  firebase.auth().currentUser;
   var uid = user.uid
-   var db = firebase.firestore();
-   var query = db.collection("notification")
-   console.log('query',query);
-   query.get()
-        .then((querySnapshot)=> {
-          querySnapshot.forEach((doc) => {
-          this.notif = doc.data();
-          this.setState({ notif: this.notif })
-        })
-      })
+  var db = firebase.firestore();
+  var cptProche =  db.collection(uid);
 
-        .catch((error)=> {
-          console.log("erreur dans la reception du document", error);
-        })
+  
+  cptProche.get().then((querySnapshot)=> {
+    querySnapshot.forEach((doc) => {
+    this.notif = doc.data();
+    this.setState({ notif: this.notif })
+  })
+})
+.catch((error) => {
+  console.log("Error getting document:", error);
+}); 
 }
 
 
+/*componentWillMount() {
+  this._asyncRequest = loadMyAsyncData().then(
+    externalData => {
+      this._asyncRequest = null;
+      this.setState({externalData});
+    }
+  );
+}*/
+
+/* FONCTIONNEL BACKUP*/
+ componentDidMount(){
+   var user =  firebase.auth().currentUser;
+   var uid = user.uid
+    var db = firebase.firestore();
+    var query = db.collection("cptProche") 
+    console.log('query',query);
+    query.where("uid", "==", uid)
+    query.get()
+         .then((querySnapshot)=> {
+  querySnapshot.forEach((doc) => {
+           this.notif = doc.data();
+           this.setState({ notif: this.notif })
+         })
+       })
+
+         .catch((error)=> {
+           console.log("erreur dans la reception du document", error);
+         })
+
+         this.render(
+          <FlatList
+          keyExtractor={({ id }, index) => this.state.notif}
+          renderItem={({extraData}) => <NotifItem extraData={this.state.notif}/>}
+        />
+         )
+ }
+
+ componentDidUpdate(prevProps, prevState){
+   this.render(
+    <FlatList
+        keyExtractor={({ id }, index) => this.state.notif}
+        renderItem={({extraData}) => <NotifItem extraData={this.state.notif}/>}
+
+      />
+   )
+  
+
+ }
 
 
   render() {
@@ -71,12 +95,7 @@ componentDidMount(){
           <Button
           onPress={this.lecture}/>
 
-          <FlatList
-          keyExtractor={(item) => item.uid.toString()}
-          keyExtractor={({ id }, index) => this.state.notif}
-          renderItem={({extraData}) => <NotifItem extraData={this.state.notif}/>}
-
-          />
+          
         </View>
       </View>
     )

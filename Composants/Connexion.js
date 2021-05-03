@@ -30,7 +30,7 @@ class Connexion extends React.Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(mail, password)
-      .then(() => this.props.navigation.navigate('Accueil'))
+      .then(() => this.props.navigation.navigate('Accueil2'))
       .catch(error => this.setState({ errorMessage: error.message }))
   }
 
