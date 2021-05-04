@@ -12,16 +12,20 @@ const Accueil2 = () => {
 
   useEffect(() => {
     var user = firebase.auth().currentUser;
-    var uid = user.uid;
+    /*Permet d'obtenir l'uid de l'user actif*/
+    var userUid = user.uid;
     var db = firebase.firestore();
     var userRef = db.collection("cptProche");
-    var patientRef = db.collection("Patient").doc("A0I96eIpx2WLlFXBqAbO");
-    const query = userRef.where("uid", "==", uid);
-    query
+    var patientRef = db.collection("Patient");
+    /*compare l'UID de l'utilisateur connecté et le compare avec la base de donnée
+    pour récuperer les données de l'user actif.*/
+    const queryUser = userRef.where("uid", "==", userUid);
+    queryUser
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((user) => {
           console.log(user.id, " => ", user.data());
+          /*User contient les datas de l'utilisateur, réucp dans la BDD */
           setUser(user.data());
         });
         setNotif();
@@ -30,8 +34,17 @@ const Accueil2 = () => {
       .catch((error) => {
         console.log("erreur dans la reception du document", error);
       });
-    patientRef.get().then((doc) => {
-      setPatient(doc.data);
+      for (var i = 0; i < user.mail.length; i++) {
+        user.mail[i]
+      }
+    const queryPatient= patientRef.where(,,);
+    patientRef
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((user) => {
+
+        })
+      setPatient(doc.data());
       console.log({ patient });
     });
     console.log(notif);
