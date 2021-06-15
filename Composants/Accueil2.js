@@ -34,19 +34,7 @@ const Accueil2 = () => {
       .catch((error) => {
         console.log("erreur dans la reception du document", error);
       });
-      for (var i = 0; i < user.mail.length; i++) {
-        user.mail[i]
-      }
-    const queryPatient= patientRef.where(,,);
-    patientRef
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((user) => {
 
-        })
-      setPatient(doc.data());
-      console.log({ patient });
-    });
     console.log(notif);
   }, []);
 
